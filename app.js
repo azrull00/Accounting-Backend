@@ -1,18 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
-const authRoutes = require("./routes/auth");
-// const postRoutes = require("./routes/post");
-// const commentRoutes = require("./routes/comment");
-// const categoryRoutes = require("./routes/category");
-// const roleRoutes = require("./routes/role");
-// const profileRoutes = require("./routes/profile");
-const prisma = new PrismaClient();
+
 const dotenv = require('dotenv');
 const errorHandler = require('./middleware/errorHandler');
+const authRoutes = require("./routes/auth");
 const transactionRoutes = require('./routes/transaction');
+const categoryRoutes = require("./routes/category");
 dotenv.config();
-
+const prisma = new PrismaClient();
 const app = express();
 
 // Middleware
@@ -20,8 +16,10 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api/auth', require('./routes/auth'));
+app.use('/api/auth', authRoutes);
 app.use('/api/transactions', transactionRoutes);
+app.use('/api/category', categoryRoutes);
+
 // Error handling middleware 
 app.use(errorHandler);
 
