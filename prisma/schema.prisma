@@ -66,3 +66,14 @@ model Profile {
   user   User    @relation(fields: [userId], references: [id])
   userId Int     @unique
 }
+
+model Transaction {
+  id           Int      @id @default(autoincrement())
+  date         DateTime @default(now())
+  description  String
+  userId       Int
+  accountId    Int
+  debitAmount  Decimal  @db.Decimal(15, 2)
+  creditAmount Decimal  @db.Decimal(15, 2)
+  journalId    Int?
+}

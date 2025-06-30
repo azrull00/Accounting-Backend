@@ -8,11 +8,9 @@ const authRoutes = require("./routes/auth");
 // const roleRoutes = require("./routes/role");
 // const profileRoutes = require("./routes/profile");
 const prisma = new PrismaClient();
-
-
 const dotenv = require('dotenv');
 const errorHandler = require('./middleware/errorHandler');
-
+const transactionRoutes = require('./routes/transaction');
 dotenv.config();
 
 const app = express();
@@ -23,7 +21,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
-
+app.use('/api/transactions', transactionRoutes);
 // Error handling middleware 
 app.use(errorHandler);
 
