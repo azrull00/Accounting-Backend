@@ -35,6 +35,7 @@ const findAll = async (req, res) => {
 
 const findById = async (req, res) => {
     try {
+        const id = parseInt(req.params.id);
         const category = await prisma.category.findUnique({ where: { id } });
         res.status(201).json(category, { message: 'Data Category berdasarkan id ditemukan' })
     } catch (error) {

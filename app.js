@@ -7,11 +7,35 @@ const errorHandler = require('./middleware/errorHandler');
 const authRoutes = require("./routes/auth");
 const transactionRoutes = require('./routes/transaction');
 const categoryRoutes = require("./routes/category");
-const ModelRoutes = require("./routes/modul");
+const rateLimit = require("express-rate-limit");
+
 
 dotenv.config();
 const prisma = new PrismaClient();
 const app = express();
+
+
+// Rate Limiterr
+const limiter = rateLimit({
+    max: 200,
+    windowMs: 60 * 60 * 1000,
+    handler: (req, res) => {
+        res.status(429).json({
+            status: false,
+            message: "Too many requests from this IP, please try again later."
+        });
+        return apiResponse(res, 429, "Too many requests from this IP, please try again later.");
+    }
+});
+
+app.use(limiter);
+
+app.get("/", (req, res) => {
+    res.status(200).json({
+        status: true,
+        message: "Learning Node js"
+    });
+});
 
 // Middleware
 app.use(cors());
