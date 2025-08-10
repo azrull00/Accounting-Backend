@@ -75,6 +75,8 @@ const deleted = async (req, res) => {
     }
 };
 
+
+
 module.exports = {
     create, deleted, findAll, findById, update
 };

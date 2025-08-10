@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 exports.schema = Joi.object({
-    date: Joi.date().required(),
+    // date: Joi.date().required(),
     description: Joi.string().required(),
     userId: Joi.number().required(),
     accountId: Joi.number().required(),

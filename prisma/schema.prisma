@@ -29,14 +29,13 @@ model User {
 }
 
 model Post {
-  id         Int        @id @default(autoincrement())
-  title      String
-  content    String?
-  published  Boolean    @default(false)
-  author     User       @relation(fields: [authorId], references: [id])
-  authorId   Int
-  comments   Comment[]
-
+  id        Int       @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean   @default(false)
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  Int
+  comments  Comment[]
 }
 
 model Comment {
@@ -69,11 +68,20 @@ model Profile {
 
 model Transaction {
   id           Int      @id @default(autoincrement())
-  date         DateTime @default(now())
+  date         DateTime @default(now()) 
   description  String
   userId       Int
   accountId    Int
   debitAmount  Decimal  @db.Decimal(15, 2)
   creditAmount Decimal  @db.Decimal(15, 2)
   journalId    Int?
+}
+
+model Modul {
+  id        Int      @id @default(autoincrement())
+  namaModul String
+  deskripsi String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

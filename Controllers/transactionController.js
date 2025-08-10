@@ -5,15 +5,14 @@ const prisma = new PrismaClient();
 
 const create = async (req, res) => {
     try {
-        const { date, description, userId, accountId, debitAmount, creditAmount, journalId } = req.body;
+        const { description, userId, accountId, debitAmount, creditAmount, journalId } = req.body;
 
         const transaction = await prisma.transaction.create({
 
             data: {
-                date: new Date(date),
                 description,
-                userId,
-                accountId,
+                userId: parseInt(userId),
+                accountId: parseInt(accountId),
                 debitAmount,
                 creditAmount,
                 journalId
@@ -42,7 +41,12 @@ const findAll = async (req, res) => {
 
 const findById = async (req, res) => {
     try {
-        const transaction = await prisma.transaction.findById();
+        const { id } = req.params;
+        const idInt = parseInt(id);
+
+        const transaction = await prisma.transaction.findUnique({
+            where: { id: idInt },
+        });
         res.json(transaction);
     } catch (error) {
         console.error(' Id yang dicari gak ada euy');
@@ -52,16 +56,15 @@ const findById = async (req, res) => {
 
 
 const update = async (req, res) => {
-
     try {
 
-        const id = parseInt(req.params.id);
-        const { date, description, userId, accountId, debitAmount, creditAmount, journalId } = req.body;
+        const { id } = req.params;
+        const idInt = parseInt(id);
+        const { description, userId, accountId, debitAmount, creditAmount, journalId } = req.body;
 
         const updated = await prisma.transaction.update({
-            where: { id },
+            where: { id: idInt },
             data: {
-                date: new Date(date),
                 description,
                 userId,
                 accountId,
