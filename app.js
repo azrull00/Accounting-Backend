@@ -7,7 +7,7 @@ const errorHandler = require('./middleware/errorHandler');
 const authRoutes = require("./routes/auth");
 const transactionRoutes = require('./routes/transaction');
 const categoryRoutes = require("./routes/category");
-const ModelRoutes = require("./routes/model");
+const ModelRoutes = require("./routes/modul");
 
 dotenv.config();
 const prisma = new PrismaClient();
